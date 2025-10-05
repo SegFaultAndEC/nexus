@@ -1,0 +1,20 @@
+; 条件执行
+is_valid = true
+is_valid?process_data(input_data)
+
+; 流式数据处理
+data = read_file("data.txt")
+data.parse_json().filter(valid_item).map(transform_data).save_to("output.json")
+; 数学计算 - 点运算符风格
+result = 5.add(3).multiply(2).subtract(1)  ; (5+3)*2-1 = 15
+; 数学计算 - 管道风格
+result = 5 | add(3) | multiply(2) | subtract(1)  ; 同样得到 15
+; 字符串处理（注意浅拷贝的影响）
+original = "hello"
+copy = original          ; 浅拷贝，copy 和 original 共享数据
+copy.upper()             ; 这会修改共享的字符串数据
+print(original)          ; 输出 "HELLO"（原字符串也被修改了）
+; 复杂表达式
+x = 5 + 3 * 2 > 10 and not false  ; 5+6>10 and true → true
+; 条件与管道的结合
+data | process.validate.save_to_database.log_result
