@@ -1,6 +1,4 @@
 #include "test.hpp"
-#include "types/string.hpp"
-#include "types/type.hpp"
 
 void typeTest() {
     std::println("---------{} Testing---------", __FUNCTION__);

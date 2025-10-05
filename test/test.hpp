@@ -7,10 +7,12 @@
 #include "lexer/lexer.hpp"
 #include "parser/parser.hpp"
 #include "state/state.hpp"
+#include "types/list.hpp"
 #include "types/object.hpp"
 #include "types/string.hpp"
 #include <iostream>
 #include <print>
+
 using namespace std;
 using namespace nx;
 
@@ -21,7 +23,11 @@ void objectTest();
 void stateTest();
 void evalTest();
 void stringTest();
-void importTest();
+void namespaceTest();
+void listTest();
+
+void evalLine(std::string_view line, nx::Evaluator &evaluator, nx::State &state,
+              int lc = -1);
 
 struct Foo {
     NX_OBJECT(Foo)
@@ -90,4 +96,13 @@ static void showAST(ASTNode *node, const std::string &prefix = "",
         showAST(children[i], prefix + (isLast ? "    " : "|   "), last);
     }
 }
+
+#define TEST_BEGIN                                                             \
+    std::println("---------{} Testing---------", __FUNCTION__);                \
+    ::nx::State state;                                                         \
+    state.loadBuildInFunction();                                               \
+    ::nx::Evaluator evaluator(state);
+
+#define EVAL_TEST_LINE(line) evalLine(line, evaluator, state, 1);
+
 #endif // NEXUS_TEST_HPP

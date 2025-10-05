@@ -3,7 +3,7 @@
 #include "test.hpp"
 using namespace nx;
 
-void importTest() {
+void namespaceTest() {
     auto line = "std..func()";
     auto tokens = lexer(line);
     std::vector<ASTNode *> pool;

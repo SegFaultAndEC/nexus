@@ -9,14 +9,15 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 #endif
-    //        lexerTest();
-    //    parserTest();
-    //    typeTest();
-    //    objectTest();
-    //    stateTest();
+    lexerTest();
+    parserTest();
+    typeTest();
+    objectTest();
+    stateTest();
     evalTest();
-    //    stringTest();
-    //    importTest();
+    stringTest();
+    namespaceTest();
+    listTest();
 
     return 0;
 }
