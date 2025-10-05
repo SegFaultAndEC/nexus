@@ -74,8 +74,10 @@ void Functions::write(State &state, const Object &obj) {
         std::putchar('[');
         for (int64_t i = 0; i < list.size(); i++) {
             write(state, list.at(i));
-            if (i + 1 != list.size())
+            if (i + 1 != list.size()) {
                 std::putchar(',');
+                std::putchar(' ');
+            }
         }
         std::putchar(']');
         return;
