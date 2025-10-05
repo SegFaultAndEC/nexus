@@ -4,7 +4,7 @@
 using namespace nx;
 
 void importTest() {
-    auto line = "std->func()";
+    auto line = "std..func()";
     auto tokens = lexer(line);
     std::vector<ASTNode *> pool;
     auto guarder = PoolCollectGuarder([&] { collectPool(pool); });

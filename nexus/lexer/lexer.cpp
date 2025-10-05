@@ -66,7 +66,7 @@ std::vector<Token> lexer(std::string_view line) {
                    (std::isalnum(static_cast<unsigned char>(line[i])) ||
                     line[i] == '_'))
                 ++i;
-            if (i + 2 < line.size() && line[i] == '-' && line[i + 1] == '>' &&
+            if (i + 2 < line.size() && line[i] == '.' && line[i + 1] == '.' &&
                 (std::isalpha(static_cast<unsigned char>(line[i + 2])) ||
                  line[i + 2] == '_')) {
 
