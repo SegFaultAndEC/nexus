@@ -18,7 +18,7 @@ class Evaluator {
     Object evalPrefix(const ASTNode *node);
     Object evalBinaryOp(const ASTNode *node);
     Object evalFunction(const ASTNode *node);
-    Object evalSubscript(const ASTNode *node);
+    Object evalIndex(const ASTNode *node);
     Object evalFlow(const ASTNode *node);
 
   private:

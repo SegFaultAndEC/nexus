@@ -21,6 +21,7 @@ class List {
     void append(const Object &obj);
     void append(const List &list);
     Object &at(int64_t index);
+    void set(int64_t index, const Object &obj);
     int64_t size();
 
   private:

@@ -22,7 +22,7 @@ class String {
     void append(const char32_t character);
     int64_t size();
     char32_t at(int64_t index);
-
+    void set(int64_t index, const char32_t character);
 
   private:
     std::string _str{};

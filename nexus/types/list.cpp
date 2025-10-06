@@ -43,4 +43,8 @@ Object &List::at(int64_t index) {
     return _list[index];
 }
 int64_t List::size() { return static_cast<int64_t>(_list.size()); }
+void List::set(int64_t index, const Object &obj) {
+    size_t indexs = static_cast<size_t>(index);
+    _list[indexs] = obj;
+}
 } // namespace nx

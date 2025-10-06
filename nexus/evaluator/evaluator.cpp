@@ -26,7 +26,7 @@ Object Evaluator::eval(const ASTNode *node) {
     case NT::FUNCTION:
         return evalFunction(node);
     case NT::INDEX:
-        return evalSubscript(node);
+        return evalIndex(node);
     default:
         return {};
     }
@@ -34,13 +34,27 @@ Object Evaluator::eval(const ASTNode *node) {
 Object Evaluator::evalAssign(const ASTNode *node) {
     using NT = ASTNode::Type;
     auto left = node->getNodes()[0];
+    // 左侧为索引节点，解析为[]=运算符
+    if (left->match(NT::INDEX)) {
+        // a[0]="a";
+        auto right = node->getNodes()[1];
+        ArgsContainer args{};
+        // 左侧为索引节点
+        auto &nodes = left->getNodes();
+        // 给目标对象留一个位置
+        args.reserve(nodes.size() + 1);
+        args.emplace_back(eval(right));
+        for (auto item : nodes) {
+            args.emplace_back(eval(item));
+        }
+        return OperatorFunc::opIndexAssign(_state, args);
+    }
     if (left->match(NT::IDENT)) {
         auto right = node->getNodes()[1];
         auto var = eval(right);
         _state.addVar(std::string(left->getToken().getLiteral()), var);
         return var;
     }
-
     auto leftv = eval(left);
     if (leftv.isRValue()) {
         NX_ERROR("Error0x0001:Expression is not assignable.")
@@ -171,14 +185,14 @@ Object Evaluator::evalFunction(const ASTNode *node) {
     std::string ns = std::string(node->getToken().getNameSpace());
     return _state.invoke(name, args, ns);
 }
-Object Evaluator::evalSubscript(const ASTNode *node) {
+Object Evaluator::evalIndex(const ASTNode *node) {
     ArgsContainer args{};
     auto &nodes = node->getNodes();
-    args.reserve(nodes.size() + 1);
+    args.reserve(nodes.size());
     for (auto item : nodes) {
         args.emplace_back(eval(item));
     }
-    return OperatorFunc::opSubscript(_state, args);
+    return OperatorFunc::opIndex(_state, args);
 }
 Object Evaluator::evalFlow(const ASTNode *node) {
     using NT = ASTNode::Type;

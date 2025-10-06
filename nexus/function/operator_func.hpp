@@ -20,6 +20,7 @@ struct OperatorFunc {
     static Object opOr(State &state, const Object &a, const Object &b);
     static Object opNot(State &state, const Object &obj);
 
-    static Object opSubscript(State &state, ArgsT args);
+    static Object opIndex(State &state, ArgsT args);
+    static Object opIndexAssign(State &state, ArgsT args);
 };
 } // namespace nx

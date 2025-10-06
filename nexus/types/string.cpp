@@ -81,4 +81,8 @@ char32_t String::at(int64_t index) {
     return static_cast<char32_t>(_str[indexs]);
 }
 int64_t String::size() { return static_cast<int64_t>(_str.size()); }
+void String::set(int64_t index, const char32_t character) {
+    size_t indexs = static_cast<size_t>(index);
+    _str[indexs] = character;
+}
 } // namespace nx

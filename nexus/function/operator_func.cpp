@@ -374,7 +374,7 @@ Object OperatorFunc::opNot(State &state, const Object &obj) {
     bool var = toBool(obj);
     return Object{!var};
 }
-Object OperatorFunc::opSubscript(State &state, ArgsT args) {
+Object OperatorFunc::opIndex(State &state, ArgsT args) {
     if (args.size() == 2) {
         if (args[0].isType<String>() && args[1].isType<Integer>())
             return Object{args[0].get<String>().at(args[1].value.integer)};
@@ -382,5 +382,21 @@ Object OperatorFunc::opSubscript(State &state, ArgsT args) {
             return Object{args[0].get<List>().at(args[1].value.integer)};
     }
     return state.invoke("operator[]", args);
+}
+
+Object OperatorFunc::opIndexAssign(State &state, ArgsT args) {
+    if (args.size() == 3) {
+        if (args[1].isType<String>() && args[2].isType<Integer>() &&
+            args[0].isType<Character>()) {
+            args[1].get<String>().set(args[2].value.integer,
+                                      args[0].value.character);
+            return args[1];
+        }
+        if (args[1].isType<List>() && args[2].isType<Integer>()) {
+            args[1].get<List>().set(args[2].value.integer, args[0]);
+            return args[1];
+        }
+    }
+    return state.invoke("operator[]=", args);
 }
 } // namespace nx
